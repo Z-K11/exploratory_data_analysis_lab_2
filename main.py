@@ -22,4 +22,7 @@ data = pd.read_csv(data_path)
 print(f'Data successfuly read and stored into a pandas data frame \n {data.head(10)} ')
 print (f'The columns of are data frame are as follows \n {data.columns}')
 print(f'The shape of our data frame = {data.shape}')
-print(f'This tells us that we have {data.shape[0]} rows and {data.shape[1]} columns ')
+print(f'This tells us that we have {data.shape[0]} ro\ws and {data.shape[1]} columns ')
+print(f'Data info \n{data.info}')
+print(f'Data description \n{data.describe}')
+
