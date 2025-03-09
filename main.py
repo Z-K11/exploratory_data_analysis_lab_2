@@ -16,3 +16,10 @@ else:
         file.write(response.content)
     print(f'File downloaded succesfully and saved at {data_path}')
 
+
+# The code above only downloads the required csv file for the lab if the file doesn't exist already 
+data = pd.read_csv(data_path)
+print(f'Data successfuly read and stored into a pandas data frame \n {data.head(10)} ')
+print (f'The columns of are data frame are as follows \n {data.columns}')
+print(f'The shape of our data frame = {data.shape}')
+print(f'This tells us that we have {data.shape[0]} rows and {data.shape[1]} columns ')
