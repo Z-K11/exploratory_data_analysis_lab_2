@@ -21,10 +21,22 @@ else:
 data = pd.read_csv(data_path)
 print(f'Data successfuly read and stored into a pandas data frame \n {data.head(10)} ')
 print(f'The shape of our data frame = {data.shape}')
-print(f'This tells us that we have {data.shape[0]} ro\ws and {data.shape[1]} columns ')
+print(f'This tells us that we have {data.shape[0]} rows and {data.shape[1]} columns ')
 print(f'Data info \n{data.info}')
 print(f'Data description \n{data.describe}')
 print(f'Checking for missing values in the data {data.isnull().sum()}')
 print (f'The columns of are data frame are as follows \n {data.columns}')
 gasoline = data[['REF_DATE','GEO','Type of fuel','VALUE']].rename(columns={"REF_DATE":"DATE","Type of fuel":"TYPE"})
 print(f'Filtered data \n {gasoline.head()}')
+gasoline[['City','Province']]=gasoline['GEO'].str.split(',',n=1,expand=True)
+print(gasoline.head())
+gasoline['DATE']=pd.to_datetime(gasoline['DATE'],format='%b-%y')
+# Converting the date column into a datetime object 
+print(f'date column after converstion {gasoline['DATE']}')
+gasoline['Month']=gasoline['DATE'].dt.month_name().str.slice(stop=3)
+# extracts the month from the datetime object and converts it into a str e.g januray stop three slices januray
+# into jan
+gasoline['Year']=gasoline['DATE'].dt.year
+print(f'Printingg the data set after date conversion \n {gasoline.head()}')
+print(gasoline['VALUE'].describe())
+print(f'Printing the unique values of locations from the data set insuring no duplicates are found \n {gasoline['GEO'].unique().tolist()}')
