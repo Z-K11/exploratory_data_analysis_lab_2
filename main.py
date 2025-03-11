@@ -59,4 +59,11 @@ print(f'Filetering data using multiple conditions using the is in method \n {isi
 print('\nThis method is readable and more cleaner as you can tell')
 print('Selecting the data that shows the price of ousehold heating fuel in Vancouver in 1990')
 ans = gasoline[(gasoline['TYPE']=='Household heating fuel')&(gasoline['City']=='Vancouver')&(gasoline['Year']==1990)]
+years=[2021,1979,1990]
+ans = gasoline[(gasoline['TYPE']=='Household heating fuel')&(gasoline['City']=='Vancouver')&(gasoline['Year'].isin(years))]
+ans = gasoline[(gasoline['TYPE']=='Household heating fuel')&(gasoline['City']=='Vancouver')&(gasoline['Year'].isin(years))]
 print(f'ans = {ans}')
+ans = gasoline[(gasoline['TYPE']=='Household heating fuel')&(gasoline['City']=='Vancouver')]
+print('Verifying if our approach is correct')
+print(ans['Year'].unique())
+# our filtering works properly 
