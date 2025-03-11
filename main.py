@@ -40,3 +40,10 @@ gasoline['Year']=gasoline['DATE'].dt.year
 print(f'Printingg the data set after date conversion \n {gasoline.head()}')
 print(gasoline['VALUE'].describe())
 print(f'Printing the unique values of locations from the data set insuring no duplicates are found \n {gasoline['GEO'].unique().tolist()}')
+# the .unique() function selects all the unique values ensuring the duplicates are not selected 
+print(f'\nPrinting all the categories from the types columns \n {gasoline['TYPE'].unique().tolist()}')
+# Now we will start filtering the data 
+calgary_albarta = gasoline[gasoline['GEO']=='Calgary, Alberta']
+# Creates a new dataframe and stores it into our varable having rows only equal to the string provided 
+print(calgary_albarta)
+# calgary_albarta = gasoline['GEO']=='Calgary, Alberta' will return true for the row where our string is present so it is a boolean series 
