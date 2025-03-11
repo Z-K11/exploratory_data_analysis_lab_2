@@ -20,9 +20,11 @@ else:
 # The code above only downloads the required csv file for the lab if the file doesn't exist already 
 data = pd.read_csv(data_path)
 print(f'Data successfuly read and stored into a pandas data frame \n {data.head(10)} ')
-print (f'The columns of are data frame are as follows \n {data.columns}')
 print(f'The shape of our data frame = {data.shape}')
 print(f'This tells us that we have {data.shape[0]} ro\ws and {data.shape[1]} columns ')
 print(f'Data info \n{data.info}')
 print(f'Data description \n{data.describe}')
-
+print(f'Checking for missing values in the data {data.isnull().sum()}')
+print (f'The columns of are data frame are as follows \n {data.columns}')
+gasoline = data[['REF_DATE','GEO','Type of fuel','VALUE']].rename(columns={"REF_DATE":"DATE","Type of fuel":"TYPE"})
+print(f'Filtered data \n {gasoline.head()}')
