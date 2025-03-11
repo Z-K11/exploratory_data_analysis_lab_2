@@ -52,3 +52,11 @@ print(f'\nFiltered rows using year \n {gasoline_2000}')
 # Let's perform multiple filteration using mutliple condition 
 multiple_condition = gasoline[(gasoline['GEO']=='Toronto, Ontario')|(gasoline['GEO']=='Edmonton, Alberta')]
 print(f'Printing the data set after performing filteration using mutliple conditions \n {multiple_condition}')
+# We can also use isin method to select multiple conditions in an easier way using lists 
+Cities = ['Calgary','Toronto','Edmonton']
+isin_filtered = gasoline[gasoline['City'].isin(Cities)]
+print(f'Filetering data using multiple conditions using the is in method \n {isin_filtered}')
+print('\nThis method is readable and more cleaner as you can tell')
+print('Selecting the data that shows the price of ousehold heating fuel in Vancouver in 1990')
+ans = gasoline[(gasoline['TYPE']=='Household heating fuel')&(gasoline['City']=='Vancouver')&(gasoline['Year']==1990)]
+print(f'ans = {ans}')
