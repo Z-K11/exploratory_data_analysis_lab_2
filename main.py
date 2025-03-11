@@ -47,3 +47,8 @@ calgary_albarta = gasoline[gasoline['GEO']=='Calgary, Alberta']
 # Creates a new dataframe and stores it into our varable having rows only equal to the string provided 
 print(calgary_albarta)
 # calgary_albarta = gasoline['GEO']=='Calgary, Alberta' will return true for the row where our string is present so it is a boolean series 
+gasoline_2000 = gasoline[gasoline['Year']==2000]
+print(f'\nFiltered rows using year \n {gasoline_2000}')
+# Let's perform multiple filteration using mutliple condition 
+multiple_condition = gasoline[(gasoline['GEO']=='Toronto, Ontario')|(gasoline['GEO']=='Edmonton, Alberta')]
+print(f'Printing the data set after performing filteration using mutliple conditions \n {multiple_condition}')
