@@ -67,3 +67,16 @@ ans = gasoline[(gasoline['TYPE']=='Household heating fuel')&(gasoline['City']=='
 print('Verifying if our approach is correct')
 print(ans['Year'].unique())
 # our filtering works properly 
+geo = gasoline.groupby('GEO')
+print(geo.ngroups)
+'''Most commonly, we use groupby() to split the data into groups,this will apply some function to each of the groups 
+(e.g. mean, median, min, max, count), then combine the results into a data structure.
+For example, let's select the 'VALUE' column and calculate the mean of the gasoline prices per year.
+First, we specify the 'Year" column, following by the 'VALUE' column, and the mean() function.'''
+group_year=gasoline.groupby('Year')['VALUE'].mean()
+print(f'Mean of values grouped per year = {group_year} no. of groups = {gasoline.groupby('Year').ngroups}')
+print('The groupby method groups unique values')
+exercise = gasoline.groupby('Month')['VALUE'].max()
+# grouping by month with max price value 
+exercise2 = gasoline.groupby(['Year','City'])['VALUE'].median().reset_index(name='VALUE').round(2)
+print(exercise2)
