@@ -80,3 +80,12 @@ exercise = gasoline.groupby('Month')['VALUE'].max()
 # grouping by month with max price value 
 exercise2 = gasoline.groupby(['Year','City'])['VALUE'].median().reset_index(name='VALUE').round(2)
 print(exercise2)
+# let's plot the price of gasoline in all cities during 1979-2021
+price_bycity = gasoline.groupby(['Year','GEO'])['VALUE'].mean().reset_index(name='VALUE').round(2)
+print(f'Price of gaslone classified by city {price_bycity}')
+fig = px.line(price_bycity,x='Year',y='VALUE',color='GEO',color_discrete_sequence=px.colors.qualitative.Light24)
+fig.update_layout(title="Gasoline Price Trend per City",
+    xaxis_title="Year",
+    yaxis_title="Annual Average Price, Cents per Litre")
+fig.update_traces(mode='markers+lines')
+fig.show()
