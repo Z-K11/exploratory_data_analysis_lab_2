@@ -89,3 +89,19 @@ fig.update_layout(title="Gasoline Price Trend per City",
     yaxis_title="Annual Average Price, Cents per Litre")
 fig.update_traces(mode='markers+lines')
 fig.show()
+
+one_year=gasoline[gasoline['Year']==2021]
+print(f'Average values of gasoline through years \n {one_year.head()}')
+month_trend= gasoline[(gasoline['Year']==2021)&(gasoline['GEO']=='Toronto, Ontario')]
+group_month = month_trend.groupby(['Month'])['VALUE'].mean().reset_index(name='Average prices').sort_values(by='Average prices')
+print(f'Average price of gas in tornonto for year 2021 = {group_month}')
+fig =px.line(group_month,x='Month',y='Average prices')
+fig.update_traces(mode='markers+lines')
+fig.update_layout(title="Toronto Average Monthly Gasoline Price in 2021",
+    xaxis_title="Month",
+    yaxis_title="Monthly Price, Cents per Litre")
+fig.show()
+average = gasoline.groupby(['Year','TYPE'])['VALUE'].mean().reset_index().round(2)
+fig = px.bar(average,x='TYPE',y='VALUE',animation_frame='Year')
+fig.update_layout(title='Average anual gas prices',xaxis_title='Year',yaxis_title='Price')
+fig.show()
