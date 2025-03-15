@@ -125,7 +125,9 @@ province_id={
     ' Northwest Territories':13}
 geo_data['ProvinceID']=geo_data['Province'].map(province_id)
 print(geo_data)
-geo_data = "geo_data"
+geo = requests.get("https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-ML0232EN-SkillsNetwork/asset/canada_provinces.geojson")
+mp = json.loads(geo.text)
+'''geo_data = "geo_data"
 os.makedirs(geo_data,exist_ok=True)
 geo_data_destination = os.path.join(geo_data,"data.geoJson")
 url ="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-ML0232EN-SkillsNetwork/asset/canada_provinces.geojson"
@@ -137,4 +139,26 @@ else :
         file.write(response.content)
     print(f"file succesfully saved at path = {geo_data_destination}")
 with open (geo_data_destination,"r",encoding="utf-8") as file:
-    mp = json.loads(file)
+    mp = json.loads(file.read())'''
+fig = px.choropleth(geo_data,
+                    locations="ProvinceID",
+                    geojson=mp,
+                    featureidkey="properties.cartodb_id",
+                    color="Average gasoline price",
+                    color_continuous_scale=px.colors.diverging.Tropic,
+                    scope="north america",
+                    title='<b>Averagr Gasoline Price</b>',
+                    hover_name='Province',
+                    hover_data={'Average gasoline price' : True,
+                                'ProvinceID' : False},
+                    locationmode='geojson-id',)
+fig.update_layout(showlegend=True,
+                  legend_title_text='<b>Average Gasoline Price</b>',
+                  font={"size":16,"color":"#808080","family":"calibri"},
+                  margin={"r":0,"t":40,"l":0,"b":0},
+                  legend=dict(orientation='v'),
+                  geo=dict(bgcolor='rgba(0,0,0,0)',lakecolor='#e0fffe'))
+fig.update_geos(showcountries=False, showcoastlines=False,
+                showland=False, fitbounds="locations",
+                subunitcolor='white')
+fig.show()
