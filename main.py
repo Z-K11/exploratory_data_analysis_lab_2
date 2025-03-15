@@ -105,3 +105,36 @@ average = gasoline.groupby(['Year','TYPE'])['VALUE'].mean().reset_index().round(
 fig = px.bar(average,x='TYPE',y='VALUE',animation_frame='Year')
 fig.update_layout(title='Average anual gas prices',xaxis_title='Year',yaxis_title='Price')
 fig.show()
+# let's save the data of year 2021 in a separate variable 
+one_year = gasoline[gasoline['Year']==2021]
+print(f'Data Of year 2021 = \n{one_year}')
+geo_data= one_year.groupby(['Province'])['VALUE'].mean().reset_index(name='Average gasoline price').round(2)
+province_id={
+    ' Newfoundland and Labrador' :5,
+    ' Prince Edward Island':8,
+    ' Nova Scotia':2,
+    ' New Brunswick':7,
+    ' Quebec':1,
+    ' Ontario':11,
+    ' Ontario part, Ontario/Quebec':12,
+    ' Manitoba':10,
+    ' Saskatchewan':3,
+    ' Alberta':4,
+    ' British Columbia':6,
+    ' Yukon':9,
+    ' Northwest Territories':13}
+geo_data['ProvinceID']=geo_data['Province'].map(province_id)
+print(geo_data)
+geo_data = "geo_data"
+os.makedirs(geo_data,exist_ok=True)
+geo_data_destination = os.path.join(geo_data,"data.geoJson")
+url ="https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-ML0232EN-SkillsNetwork/asset/canada_provinces.geojson"
+response = requests.get(url)
+if os.path.exists(geo_data_destination):
+    print(f'Data already exists at {geo_data_destination}')
+else :
+    with open(geo_data_destination,"wb") as file:
+        file.write(response.content)
+    print(f"file succesfully saved at path = {geo_data_destination}")
+with open (geo_data_destination,"r",encoding="utf-8") as file:
+    mp = json.loads(file)
